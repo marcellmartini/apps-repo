@@ -57,7 +57,7 @@ jobs:
         run: |
           git config --local user.email "test@test.com"
           git config --local user.name "Test"
-          sed -i "s|marcellmartini/.*|${{ steps.meta.outputs.tags }}|g" ./staging/deployment.yml
+          sed -i "s|marcellmartini/.*|${{ steps.meta.outputs.tags }}|g" deployment.yml
           git add deployment.yml
           git commit -m "Update Image to version ${{ steps.meta.outputs.tags }}"
 
