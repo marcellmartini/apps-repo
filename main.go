@@ -6,7 +6,7 @@ import (
 )
 
 func hello(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Feliz Sexta Feira!!")
+	fmt.Fprint(w, "Feliz Final de semana!!")
 }
 
 func main() {
