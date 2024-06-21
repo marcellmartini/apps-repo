@@ -46,3 +46,9 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: checkout infra-repo
+        uses: actions/checkout@v4
+        with:
+          repository: marcellmartini/infra-repo
+          token: ${{ secrets.GH_PAT }} 
