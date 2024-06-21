@@ -47,8 +47,24 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: checkout infra-repo
+      - name: update infra-repo
         uses: actions/checkout@v4
         with:
           repository: marcellmartini/infra-repo
-          token: ${{ secrets.GH_PAT }} 
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Update image version
+        run: |
+          git config --local user.email "test@test.com"
+          git config --local user.name "Test"
+          sed -i "s|marcellmartini/.*|${{ steps.meta.outputs.tags }}|g" deployment.yml
+          git add deployment.yml
+          git commit -m "Update Image to version ${{ steps.meta.outputs.tags }}"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GH_PAT }}
+          repository: marcellmartini/infra-repo
+          force_with_lease: true
+
